@@ -56,8 +56,7 @@ class Pomodoro extends React.Component {
         return {
             session_length: 25,
             break_length: 5,
-            time_left: 24,
-            seconds_left: 59,
+            time_left: 25*60,
             clock_running: false,
             current_type: 'Session',
             alert_time: false,
@@ -65,15 +64,10 @@ class Pomodoro extends React.Component {
     }
 
     componentDidMount() {
-        // no need
-        // this.setState({
-        //     time_left: this.state.session_length
-        // })
     }
 
     componentWillUnmount() {
         clearInterval(this.timer)
-        clearInterval(this.seconds)
     }
 
     handleChange(current_type, change_type) {
@@ -92,7 +86,6 @@ class Pomodoro extends React.Component {
 
     handleReset = () => {
         clearInterval(this.timer)
-        clearInterval(this.seconds)
         this.setState(this.initialState)
     }
 
@@ -113,16 +106,9 @@ class Pomodoro extends React.Component {
                 this.setState({
                     time_left: this.state.time_left - 1
                 })
-            }, 6000)
-
-            this.seconds = setInterval(() => {
-                this.setState({
-                    seconds_left: this.state.seconds_left - 1
-                })
-            }, 100)
+            }, 1000)
         } else {
             clearInterval(this.timer)
-            clearInterval(this.seconds)
         }
 
         this.setState({
@@ -154,16 +140,13 @@ class Pomodoro extends React.Component {
             prevState.session_length !== this.state.session_length ||
             prevState.break_length !== this.state.break_length) {
             this.setState({
-                time_left: this.state.current_type === 'Session' ? prevState.break_length !== this.state.break_length ? this.state.time_left : this.state.session_length-1 : this.state.break_length,
+                time_left: this.state.current_type === 'Session' ? prevState.break_length !== this.state.break_length ? this.state.time_left : this.state.session_length*60 : this.state.break_length*60,
                 alert_time: false,
             })
         }
 
         if (prevState.time_left !== this.state.time_left) {
-            this.setState({
-                seconds_left: 59
-            })
-            if (this.state.time_left <= 1) {
+            if (this.state.time_left <= 120) {
                 this.setState({
                     alert_time: true
                 })
@@ -171,8 +154,8 @@ class Pomodoro extends React.Component {
         }
     }
 
-    prePadDigit = (digit) => {
-        return digit <= 9 ? "0" + digit : digit
+    showTime = (seconds) => {
+        return new Date(seconds * 1000).toISOString().substr(14, 5)
     }
 
     render() {
@@ -185,7 +168,7 @@ class Pomodoro extends React.Component {
                 </StyledContainer>
                 <StyledContainer style={{color: this.state.alert_time ? 'red' : 'black'}} direction={'column'}>
                     <StyledText size={'36px'}>{this.state.current_type}</StyledText>
-                    <StyledText size={'48px'}>{this.prePadDigit(this.state.time_left)}:{this.prePadDigit(this.state.seconds_left)}</StyledText>
+                    <StyledText size={'48px'}>{this.showTime(this.state.time_left)}</StyledText>
                 </StyledContainer>
                 <StyledContainer>
                     <StyledImg size={'40px'} src={this.state.clock_running ? Pause : Play} onClick={this.handleRun} alt='' />
