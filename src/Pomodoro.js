@@ -13,6 +13,7 @@ const StyledContainer = styled.div`
     align-items: center;
     justify-content: center;
     width: auto;
+    background: rgb(245, 245, 245);
     height: ${props => props.height ?? 'auto'};
 `
 const StyledText = styled.p`
@@ -192,17 +193,17 @@ class Pomodoro extends React.Component {
         return (
             <StyledContainer direction={'column'} height={'100%'}>
                 <StyledText size={'42px'}>Pomodoro Clock</StyledText>
-                <StyledContainer height={'100px'}>
+                <StyledContainer height={'180px'}>
                     <Counter handleChange={this.handleChange} clockRunning={this.state.clock_running} type={'Break'} length={this.state.break_length} />
                     <Counter  handleChange={this.handleChange} clockRunning={this.state.clock_running} type={'Session'} length={this.state.session_length} />
                 </StyledContainer>
-                <StyledContainer style={{color: this.state.alert_time ? 'red' : 'black'}} direction={'column'}>
-                    <StyledText size={'36px'}>{this.state.current_type}</StyledText>
-                    <StyledText size={'48px'}>{this.showTime(this.state.time_left)}</StyledText>
+                <StyledContainer style={{color: this.state.alert_time ? 'red' : 'black', background: 'rgb(220, 220, 220)', padding: '20px 0 10px 0', width: '400px'}} direction={'column'}>
+                    <StyledText size={'42px'}>{this.state.current_type}</StyledText>
+                    <StyledText size={'64px'}>{this.showTime(this.state.time_left)}</StyledText>
                 </StyledContainer>
-                <StyledContainer>
-                    <StyledImg size={'40px'} src={this.state.clock_running ? Pause : Play} onClick={this.handleRun} alt='' />
-                    <StyledImg size={'40px'} src={Reset} onClick={this.handleReset} alt='' />
+                <StyledContainer style={{background: 'rgb(200, 200, 200)', padding: '10px 0 20px 0', width: '400px'}}>
+                    <StyledImg size={'48px'} src={this.state.clock_running ? Pause : Play} onClick={this.handleRun} alt='' />
+                    <StyledImg size={'48px'} src={Reset} onClick={this.handleReset} alt='' />
                 </StyledContainer>
             </StyledContainer>
         )
