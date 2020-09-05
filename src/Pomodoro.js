@@ -5,7 +5,7 @@ import ArrowDown from './Assets/expand_more-24px.svg'
 import Play from './Assets/play_arrow-24px.svg'
 import Pause from './Assets/pause-24px.svg'
 import Reset from './Assets/restore-24px.svg'
-
+import Beep from './Assets/media/beep-04.mp3'
 
 const StyledContainer = styled.div`
     display: flex;
@@ -50,6 +50,7 @@ class Pomodoro extends React.Component {
         this.state = this.initialState;
 
         this.handleChange = this.handleChange.bind(this);
+        this.audio = new Audio(Beep)
     }
 
     get initialState() {
@@ -60,13 +61,16 @@ class Pomodoro extends React.Component {
             clock_running: false,
             current_type: 'Session',
             alert_time: false,
+            play_audio: false,
         }
     }
 
     componentDidMount() {
+        this.audio.addEventListener('ended', () => this.setState({ play_audio: false }));
     }
 
     componentWillUnmount() {
+        this.audio.removeEventListener('ended', () => this.setState({ play_audio: false }));
         clearInterval(this.timer)
     }
 
@@ -152,6 +156,9 @@ class Pomodoro extends React.Component {
         if (prevState.current_type !== this.state.current_type ||
             prevState.session_length !== this.state.session_length ||
             prevState.break_length !== this.state.break_length) {
+            if (prevState.current_type !== this.state.current_type) {
+                this.togglePlay()
+            }
             this.setState({
                 time_left: this.state.current_type === 'Session' ? prevState.break_length !== this.state.break_length ? this.state.time_left : this.state.session_length*60 : this.state.break_length*60,
                 alert_time: false,
@@ -164,11 +171,21 @@ class Pomodoro extends React.Component {
                     alert_time: true
                 })
             }
+
+            if (this.state.time_left <= 5) {
+                this.togglePlay()
+            }
         }
     }
 
     showTime = (seconds) => {
         return new Date(seconds * 1000).toISOString().substr(14, 5)
+    }
+
+    togglePlay = () => {
+        this.setState({ play_audio: !this.state.play_audio }, () => {
+            this.state.play_audio ? this.audio.play() : this.audio.pause();
+        });
     }
 
     render() {
