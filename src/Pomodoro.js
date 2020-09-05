@@ -71,6 +71,11 @@ class Pomodoro extends React.Component {
         // })
     }
 
+    componentWillUnmount() {
+        clearInterval(this.timer)
+        clearInterval(this.seconds)
+    }
+
     handleChange(current_type, change_type) {
         if (current_type === 'Session' && this.state.session_length >= 1) {
             this.setState({
@@ -167,7 +172,7 @@ class Pomodoro extends React.Component {
     }
 
     prePadDigit = (digit) => {
-        return digit < 9 ? "0" + digit : digit
+        return digit <= 9 ? "0" + digit : digit
     }
 
     render() {
