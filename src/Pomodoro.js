@@ -102,7 +102,6 @@ class Pomodoro extends React.Component {
                     }
                 }
 
-                console.log("clock", this.state.time_left)
                 this.setState({
                     time_left: this.state.time_left - 1
                 })
