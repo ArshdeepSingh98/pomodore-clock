@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/pomodore-clock/static/css/main.5eb813dc.chunk.css",
+    "main.js": "/pomodore-clock/static/js/main.50f5a0c1.chunk.js",
+    "main.js.map": "/pomodore-clock/static/js/main.50f5a0c1.chunk.js.map",
+    "runtime-main.js": "/pomodore-clock/static/js/runtime-main.238cfa6e.js",
+    "runtime-main.js.map": "/pomodore-clock/static/js/runtime-main.238cfa6e.js.map",
+    "static/js/2.aa457ddc.chunk.js": "/pomodore-clock/static/js/2.aa457ddc.chunk.js",
+    "static/js/2.aa457ddc.chunk.js.map": "/pomodore-clock/static/js/2.aa457ddc.chunk.js.map",
+    "index.html": "/pomodore-clock/index.html",
+    "precache-manifest.1e3b74df148416f7ba8393ac70baca40.js": "/pomodore-clock/precache-manifest.1e3b74df148416f7ba8393ac70baca40.js",
+    "service-worker.js": "/pomodore-clock/service-worker.js",
+    "static/css/main.5eb813dc.chunk.css.map": "/pomodore-clock/static/css/main.5eb813dc.chunk.css.map",
+    "static/js/2.aa457ddc.chunk.js.LICENSE.txt": "/pomodore-clock/static/js/2.aa457ddc.chunk.js.LICENSE.txt",
+    "static/media/expand_less-24px.svg": "/pomodore-clock/static/media/expand_less-24px.47f91d3c.svg",
+    "static/media/expand_more-24px.svg": "/pomodore-clock/static/media/expand_more-24px.95a46151.svg",
+    "static/media/pause-24px.svg": "/pomodore-clock/static/media/pause-24px.0d842eeb.svg",
+    "static/media/play_arrow-24px.svg": "/pomodore-clock/static/media/play_arrow-24px.f5408bdf.svg",
+    "static/media/restore-24px.svg": "/pomodore-clock/static/media/restore-24px.0ebb9c89.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.238cfa6e.js",
+    "static/js/2.aa457ddc.chunk.js",
+    "static/css/main.5eb813dc.chunk.css",
+    "static/js/main.50f5a0c1.chunk.js"
+  ]
+}
