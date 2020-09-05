@@ -162,6 +162,10 @@ class Pomodoro extends React.Component {
         }
     }
 
+    prePadDigit = (digit) => {
+        return digit < 9 ? "0" + digit : digit
+    }
+
     render() {
         return (
             <StyledContainer direction={'column'} height={'100%'}>
@@ -172,7 +176,7 @@ class Pomodoro extends React.Component {
                 </StyledContainer>
                 <StyledContainer direction={'column'}>
                     <StyledText size={'36px'}>{this.state.current_type}</StyledText>
-                    <StyledText size={'48px'}>{this.state.time_left}:{this.state.seconds_left}</StyledText>
+                    <StyledText size={'48px'}>{this.prePadDigit(this.state.time_left)}:{this.prePadDigit(this.state.seconds_left)}</StyledText>
                 </StyledContainer>
                 <StyledContainer>
                     <StyledImg size={'40px'} src={this.state.clock_running ? Pause : Play} onClick={this.handleRun} alt='' />
