@@ -56,7 +56,8 @@ class Pomodoro extends React.Component {
         return {
             session_length: 25,
             break_length: 5,
-            time_left: 25,
+            time_left: 24,
+            seconds_left: 59,
             clock_running: false,
             current_type: 'Session',
         }
@@ -86,11 +87,12 @@ class Pomodoro extends React.Component {
     handleReset = () => {
         console.log('reset')
         clearInterval(this.timer)
+        clearInterval(this.seconds)
         this.setState(this.initialState)
     }
 
     handleRun = () => {
-        // console.log(this.state.current_type, this.state.clock_running)
+        console.log('time left:', this.state.time_left)
 
         if (this.state.clock_running === false) {
             this.timer = setInterval(() => {
@@ -108,9 +110,16 @@ class Pomodoro extends React.Component {
                 this.setState({
                     time_left: this.state.time_left - 1
                 })
-            }, 200)
+            }, 6000)
+
+            this.seconds = setInterval(() => {
+                this.setState({
+                    seconds_left: this.state.seconds_left - 1
+                })
+            }, 100)
         } else {
             clearInterval(this.timer)
+            clearInterval(this.seconds)
         }
 
         this.setState({
@@ -142,7 +151,13 @@ class Pomodoro extends React.Component {
             prevState.session_length !== this.state.session_length ||
             prevState.break_length !== this.state.break_length) {
             this.setState({
-                time_left: this.state.current_type === 'Session' ? this.state.session_length : this.state.break_length,
+                time_left: this.state.current_type === 'Session' ? this.state.session_length-1 : this.state.break_length,
+            })
+        }
+
+        if (prevState.time_left !== this.state.time_left) {
+            this.setState({
+                seconds_left: 59
             })
         }
     }
@@ -157,7 +172,7 @@ class Pomodoro extends React.Component {
                 </StyledContainer>
                 <StyledContainer direction={'column'}>
                     <StyledText size={'36px'}>{this.state.current_type}</StyledText>
-                    <StyledText size={'48px'}>{this.state.time_left}</StyledText>
+                    <StyledText size={'48px'}>{this.state.time_left}:{this.state.seconds_left}</StyledText>
                 </StyledContainer>
                 <StyledContainer>
                     <StyledImg size={'40px'} src={this.state.clock_running ? Pause : Play} onClick={this.handleRun} alt='' />
