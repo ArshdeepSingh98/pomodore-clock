@@ -86,15 +86,12 @@ class Pomodoro extends React.Component {
     }
 
     handleReset = () => {
-        console.log('reset')
         clearInterval(this.timer)
         clearInterval(this.seconds)
         this.setState(this.initialState)
     }
 
     handleRun = () => {
-        console.log('time left:', this.state.time_left)
-
         if (this.state.clock_running === false) {
             this.timer = setInterval(() => {
                 if (this.state.time_left === 0) {
