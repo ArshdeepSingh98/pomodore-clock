@@ -123,6 +123,13 @@ class Pomodoro extends React.Component {
                     time_left: 0,
                 })
             }
+
+            if (this.state.session_length >= 60) {
+                this.setState({
+                    session_length: 60,
+                    time_left: 60*60-1
+                })
+            }
         }
 
         if (prevState.break_length !== this.state.break_length) {
@@ -131,6 +138,13 @@ class Pomodoro extends React.Component {
                     break_length: 1,
                     time_left: 0,
                     clock_running: false,
+                })
+            }
+
+            if (this.state.break_length >= 60) {
+                this.setState({
+                    break_length: 60,
+                    time_left: 60*60-1
                 })
             }
         }
