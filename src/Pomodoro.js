@@ -60,6 +60,7 @@ class Pomodoro extends React.Component {
             seconds_left: 59,
             clock_running: false,
             current_type: 'Session',
+            alert_time: false,
         }
     }
 
@@ -151,7 +152,8 @@ class Pomodoro extends React.Component {
             prevState.session_length !== this.state.session_length ||
             prevState.break_length !== this.state.break_length) {
             this.setState({
-                time_left: this.state.current_type === 'Session' ? this.state.session_length-1 : this.state.break_length,
+                time_left: this.state.current_type === 'Session' ? prevState.break_length !== this.state.break_length ? this.state.time_left : this.state.session_length-1 : this.state.break_length,
+                alert_time: false,
             })
         }
 
@@ -159,6 +161,11 @@ class Pomodoro extends React.Component {
             this.setState({
                 seconds_left: 59
             })
+            if (this.state.time_left <= 1) {
+                this.setState({
+                    alert_time: true
+                })
+            }
         }
     }
 
@@ -174,7 +181,7 @@ class Pomodoro extends React.Component {
                     <Counter handleChange={this.handleChange} clockRunning={this.state.clock_running} type={'Break'} length={this.state.break_length} />
                     <Counter  handleChange={this.handleChange} clockRunning={this.state.clock_running} type={'Session'} length={this.state.session_length} />
                 </StyledContainer>
-                <StyledContainer direction={'column'}>
+                <StyledContainer style={{color: this.state.alert_time ? 'red' : 'black'}} direction={'column'}>
                     <StyledText size={'36px'}>{this.state.current_type}</StyledText>
                     <StyledText size={'48px'}>{this.prePadDigit(this.state.time_left)}:{this.prePadDigit(this.state.seconds_left)}</StyledText>
                 </StyledContainer>
