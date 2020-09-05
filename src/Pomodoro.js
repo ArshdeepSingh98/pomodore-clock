@@ -166,7 +166,7 @@ class Pomodoro extends React.Component {
         }
 
         if (prevState.time_left !== this.state.time_left) {
-            if (this.state.time_left <= 120) {
+            if (this.state.time_left <= 30) {
                 this.setState({
                     alert_time: true
                 })
